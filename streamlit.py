@@ -5,9 +5,10 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 import tempfile
 #streamlit run streamlit.py
+#pip freeze > requirements.txt
 # Configuración de la página
 st.set_page_config(
     page_title="Enviador de Correos",
@@ -20,7 +21,7 @@ st.title("📧 Enviador de Correos Masivos")
 st.markdown("Esta aplicación te permite enviar correos masivos personalizados utilizando un archivo Excel y una plantilla HTML.")
 
 # Cargar variables de entorno (opcional)
-load_dotenv()
+#load_dotenv()
 
 # Crear tabs para organizar la interfaz
 tab1, tab2, tab3 = st.tabs(["Configuración", "Contenido", "Enviar"])
