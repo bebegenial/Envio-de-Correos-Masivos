@@ -215,6 +215,8 @@ with tab3:
             enviados = 0
             errores = 0
             total = len(df)
+            # Lista para almacenar correos no enviados
+            correos_no_enviados = []
             
             for index, row in df.iterrows():
                 nombre = row.get(col_nombre, "Estimado/a")
@@ -248,9 +250,11 @@ with tab3:
                 except Exception as e:
                     status_text.text(f"❌ Error al enviar correo a {correo}: {e}")
                     errores += 1
+                    correos_no_enviados.append(correo)  # Agregar correo a la lista de no enviados
                 
                 # Actualizar la barra de progreso
-                progress_bar.progress((index + 1) / total)
+                #progress_bar.progress((index + 1) / total)
+                progress_bar.progress(min((index + 1) / total, 1.0))
             
             # Cerrar la conexión
             server.quit()
@@ -261,6 +265,26 @@ with tab3:
             - Total de correos enviados: {enviados}
             - Total de errores: {errores}
             """)
+            
+            # Mostrar correos no enviados
+            if correos_no_enviados:
+                st.warning("Correos no enviados:")
+                st.write(correos_no_enviados)
+
+                # Guardar correos no enviados en un archivo y permitir descarga
+                with open("correos_no_enviados.txt", "w") as file:
+                    for correo in correos_no_enviados:
+                        file.write(correo + "\n")
+
+                with open("correos_no_enviados.txt", "r") as file:
+                    st.download_button(
+                        label="Descargar correos no enviados",
+                        data=file,
+                        file_name="correos_no_enviados.txt",
+                        mime="text/plain"
+                    )
+            else:
+                st.success("Todos los correos fueron enviados correctamente.")
             
         except Exception as e:
             st.error(f"Error general: {str(e)}")
