@@ -77,6 +77,7 @@ with tab1:
             
             st.success(f"✅ Archivo cargado correctamente con {len(df)} registros")
             st.dataframe(df, height=200)
+            st.session_state.df = df  # Almacenar en st.session_state
             
             # Seleccionar columnas
             st.subheader("Selecciona las columnas")
@@ -205,7 +206,10 @@ with tab3:
             st.success("✅ Conexión al servidor SMTP establecida")
             
             # Limpiar el DataFrame antes de enviar los correos
-            df = fc.limpiar_correos(df, col_correo)
+            df = fc.limpiar_correos(st.session_state.df, col_correo)
+            
+            # Obtener el primer nombre de la columna de nombres
+            df = fc.obtener_primer_nombre(df, col_nombre)
             
             # Enviar correos a cada destinatario
             enviados = 0
@@ -262,8 +266,8 @@ with tab3:
             st.error(f"Error general: {str(e)}")
     
     if st.button("Enviar Correos", type="primary"):
-        if 'uploaded_excel' in locals() and uploaded_excel is not None:
-            if 'html_content' in locals() and html_content:
+        if 'df' in st.session_state and (df is not None):
+            if 'html_content' in st.session_state and html_content:
                 with st.spinner("Enviando correos..."):
                     enviar_correos()
             else:
