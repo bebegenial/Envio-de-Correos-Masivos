@@ -7,6 +7,7 @@ from email.mime.text import MIMEText
 import os
 #from dotenv import load_dotenv
 import tempfile
+import time
 #streamlit run streamlit.py
 #pip freeze > requirements.txt
 # Configuración de la página
@@ -255,6 +256,11 @@ with tab3:
                 # Actualizar la barra de progreso
                 #progress_bar.progress((index + 1) / total)
                 progress_bar.progress(min((index + 1) / total, 1.0))
+                
+                # Hacer una pausa cada 100 correos enviados
+                if enviados % 100 == 0:
+                    status_text.text(f"Pausa de 60 segundos después de enviar {enviados} correos...")
+                    time.sleep(60)
             
             # Cerrar la conexión
             server.quit()
