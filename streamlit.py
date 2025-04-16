@@ -257,8 +257,8 @@ with tab3:
                 #progress_bar.progress((index + 1) / total)
                 progress_bar.progress(min((index + 1) / total, 1.0))
                 
-                # Hacer una pausa cada 100 correos enviados
-                if enviados % 100 == 0:
+                # Hacer una pausa cada 50 correos enviados
+                if enviados % 50 == 0:
                     status_text.text(f"Pausa de 60 segundos después de enviar {enviados} correos...")
                     time.sleep(60)
             
