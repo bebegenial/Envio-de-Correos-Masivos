@@ -200,8 +200,10 @@ with tab3:
         
         try:
             # Conectar al servidor SMTP
-            smtp_server = 'smtp.yandex.com'
-            smtp_port = 465
+            smtp_server = smtp_config["server"]
+            #smtp_server = 'smtp.yandex.com'
+            smtp_port = smtp_config["port"]
+            #smtp_port = 465
             server = smtplib.SMTP_SSL(smtp_server, smtp_port)
             server.login(remitente, password)
             st.success("✅ Conexión al servidor SMTP establecida")
