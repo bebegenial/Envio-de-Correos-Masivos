@@ -34,12 +34,12 @@ def obtener_primer_nombre(df, col_nombre):
     """
     
     # Eliminar espacios en blanco al inicio y al final de los nombres
-    df[col_nombre] = df[col_nombre].str.strip()
+    #df[col_nombre] = df[col_nombre].str.strip()
     
     # Dejando la primera letra de cada nombre en mayuscula y el resto en minuscula
     df[col_nombre] = df[col_nombre].str.title()
     
     # Aplicar una función lambda para dividir el nombre y tomar el primero
-    df[col_nombre] = df[col_nombre].apply(lambda x: x.split()[0] if isinstance(x, str) else x)
+    #df[col_nombre] = df[col_nombre].apply(lambda x: x.split()[0] if isinstance(x, str) else x)
     
     return df
